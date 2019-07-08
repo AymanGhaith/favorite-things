@@ -1,7 +1,15 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import FavoriteThing, Category, AuditTrail
+from .serializers import FavoriteThingSerializer, CategorySerializer, AuditTrailSerializer
 
-# Create your views here.
-from django.http import HttpResponse
+class FavoriteThingViewSet(viewsets.ModelViewSet):
+    queryset = FavoriteThing.objects.all()
+    serializer_class = FavoriteThingSerializer
 
-def home(request):
-    return HttpResponse('Hello, World!')
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class AuditTrailViewSet(viewsets.ModelViewSet):
+    queryset = AuditTrail.objects.all()
+    serializer_class = AuditTrailSerializer
