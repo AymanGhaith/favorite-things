@@ -11,7 +11,7 @@
           <label for="favdescinput">Description</label>
           <input v-model="description" type="text" class="form-control" id="favdescinput" placeholder="Add description">
           <label for="favrankinginput">Ranking</label>
-          <input v-model="ranking" type="number" class="form-control" id="favrankinginput" placeholder="Add Ranking">
+          <input v-model="ranking" type="number" class="form-control" id="favrankinginput">
           <label for="favcategoryinput">Category</label>
           <select v-model="category" name="category" class="form-control" id="favrankinginput">
             <option v-for="(cat) in categories" v-bind:key="cat.id" v-bind:category="cat.name"> {{cat.name}}</option>
@@ -45,28 +45,32 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      categories: [
-        {
-          'id': 1,
-          'name': 'cat1',
-          'description': 'cat1 desc'
-        },
-        {
-          'id': 2,
-          'name': 'cat2',
-          'description': 'cat2 desc'
-        }
-      ],
+      categories: [],
       favthings: [],
       id: '',
       title: '',
-      isEdit: false
+      isEdit: false,
+      description: '',
+      ranking: 0,
+      category: ''
     }
   },
   mounted () {
     this.getFavThings()
+    this.getCategories()
   },
   methods: {
+    getCategories () {
+      axios({method: 'GET', url: '/categories'}).then(
+        result => {
+          console.log(result.data)
+          this.categories = result.data
+        },
+        error => {
+          console.error(error)
+        }
+      )
+    },
     getFavThings () {
       axios({method: 'GET', url: '/favoriteThings'}).then(
         result => {
