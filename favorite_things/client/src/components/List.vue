@@ -118,9 +118,12 @@ export default {
         })
     },
     deleteFav (id) {
-      axios.delete(`/favoriteThings/${this.id}`).then(
+      axios.delete(`/favoriteThings/${id}/`).then(
         res => {
           this.title = ''
+          this.description = ''
+          this.ranking = 0
+          this.category = ''
           this.getFavThings()
           console.log(res)
         }).catch(
