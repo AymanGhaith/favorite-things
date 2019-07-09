@@ -14,7 +14,7 @@
           <input v-model="ranking" type="number" class="form-control" id="favrankinginput">
           <label for="favcategoryinput">Category</label>
           <select v-model="category" name="category" class="form-control" id="favrankinginput">
-            <option v-for="(cat) in categories" v-bind:key="cat.id" v-bind:category="cat.name"> {{cat.name}}</option>
+            <option v-for="(cat) in categories" v-bind:key="cat.id" v-bind:value="cat.id"> {{cat.name}}</option>
             <option>Add new Category</option>
           </select>
           <button v-if="this.isEdit == false" type="submit" class="btn btn-success btn-block mt-3">
@@ -83,10 +83,16 @@ export default {
       )
     },
     addNewFavThing () {
-      debugger
-      axios.post('/favoriteThings', {title: this.title}).then(
+      axios.post('/favoriteThings/', {
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        ranking: this.ranking}).then(
         (res) => {
           this.title = ''
+          this.description = ''
+          this.category = ''
+          this.ranking = 0
           this.getFavThings()
           console.log(res)
         }
