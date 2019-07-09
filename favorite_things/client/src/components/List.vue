@@ -21,14 +21,14 @@
             Submit
           </button>
           <button v-else v-on:click="updateFavThing()" type="button" class="btn btn-primary btn-block mt-3">
-            Updatefavthings
+            Update
           </button>
 
           <table class="table">
             <tr v-for="(fav) in favthings" v-bind:key="fav.id" v-bind:title="fav.title">
               <td class="text-left"> {{fav.title}} </td>
               <td class="text-right">
-                <button v-on:click="editFavThing(fav.title,fav.id)" type="button" class="btn btn-info"> Edit </button>
+                <button v-on:click="editFavThing(fav.title, fav.description, fav.category, fav.ranking, fav.id)" type="button" class="btn btn-info"> Edit </button>
                 <button v-on:click="deleteFav(fav.id)" type="button" class="btn btn-danger"> Delete </button>
               </td>
             </tr>
@@ -100,15 +100,25 @@ export default {
         console.error(err)
       })
     },
-    editFavThing (title, id) {
+    editFavThing (title, description, category, ranking, id) {
       this.id = id
       this.title = title
+      this.description = description
+      this.category = category
+      this.ranking = ranking
       this.isEdit = true
     },
     updateFavThing () {
-      axios.put(`/favoriteThings/${this.id}`, {title: this.title}).then(
+      axios.put(`/favoriteThings/${this.id}/`, {
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        ranking: this.ranking}).then(
         res => {
           this.title = ''
+          this.description = ''
+          this.category = ''
+          this.ranking = 0
           this.isEdit = false
           this.getFavThings()
           console.log(res)
