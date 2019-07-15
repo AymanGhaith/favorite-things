@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/': {
-        target: 'http://favorite-things-env.pkvyipi9ia.eu-west-2.elasticbeanstalk.com/',
+	      target: 'http://localhost:8000/',
         changeOrigin: true
       }
     },
