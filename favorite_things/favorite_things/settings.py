@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'favorite_things.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fav_things',
+        'NAME': 'favorite_things',
         'USER': 'root',
         'PASSWORD': '123123',
         'HOST': '127.0.0.1',
