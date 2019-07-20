@@ -25,7 +25,7 @@ SECRET_KEY = 'dqa#8du)y7z!l8+hmp0cs#pl0_kuh3l5^@bgi=(e=zm#s3v_wt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.31.28.72','localhost','favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['http://fav-things-bucket.s3-website.eu-west-2.amazonaws.com','172.31.28.72','localhost','favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com']
 
 
 # Application definition
