@@ -143,6 +143,10 @@ export default {
       })
     },
     editFavThing (title, description, category, ranking, id) {
+      if (this.isEdit && this.id === id) {
+        this.clear()
+        return
+      }
       this.id = id
       this.title = title
       this.description = description
