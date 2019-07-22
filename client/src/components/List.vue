@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     getCategories () {
-      axios({method: 'GET', url: '/categories'}).then(
+      axios.get('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/categories').then(
         result => {
           console.log(result.data)
           this.categories = result.data
@@ -72,7 +72,7 @@ export default {
       )
     },
     getFavThings () {
-      axios({method: 'GET', url: '/favoriteThings'}).then(
+      axios({method: 'GET', url: 'http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings'}).then(
         result => {
           console.log(result.data)
           this.favthings = result.data
@@ -83,7 +83,7 @@ export default {
       )
     },
     addNewFavThing () {
-      axios.post('/favoriteThings/', {
+      axios.post('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/', {
         title: this.title,
         description: this.description,
         category: this.category,
@@ -109,7 +109,7 @@ export default {
       this.isEdit = true
     },
     updateFavThing () {
-      axios.put(`/favoriteThings/${this.id}/`, {
+      axios.put(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${this.id}/`, {
         title: this.title,
         description: this.description,
         category: this.category,
@@ -128,7 +128,7 @@ export default {
         })
     },
     deleteFav (id) {
-      axios.delete(`/favoriteThings/${id}/`).then(
+      axios.delete(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${id}/`).then(
         res => {
           this.title = ''
           this.description = ''
