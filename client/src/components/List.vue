@@ -192,12 +192,12 @@ export default {
     addnewCategory (event) {
       if (event.target.value === 'Add new Category') {
         const newCategory = prompt('Please enter new category')
+        this.category = ''
         if (newCategory != null) {
           this.$http.post('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/categories/', {name: newCategory})
             .then(
               (res) => {
                 this.getCategories()
-                this.category = ''
                 console.log(res)
               }
             ).catch(err => {
