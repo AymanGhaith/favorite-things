@@ -23,7 +23,7 @@
           <label for="favrankinginput">Ranking</label>
           <input v-model="ranking" type="number" class="form-control" id="favrankinginput" />
           <label for="favcategoryinput">Category</label>
-          <select v-model="category" name="category" class="form-control" id="favrankinginput">
+          <select v-model="category" name="category" v-on:change="addnewCategory" class="form-control" id="favrankinginput">
             <option
               v-for="(cat) in categories"
               v-bind:key="cat.id"
@@ -188,6 +188,23 @@ export default {
         err => {
           console.error(err)
         })
+    },
+    addnewCategory (event) {
+      if (event.target.value === 'Add new Category') {
+        const newCategory = prompt('Please enter new category')
+        if (newCategory != null) {
+          this.$http.post('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/categories/', {name: newCategory})
+            .then(
+              (res) => {
+                this.getCategories()
+                this.category = ''
+                console.log(res)
+              }
+            ).catch(err => {
+              console.error(err)
+            })
+        }
+      }
     }
   }
 }
