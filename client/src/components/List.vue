@@ -83,6 +83,16 @@ export default {
     this.getCategories()
   },
   methods: {
+    clear () {
+      this.title = ''
+      this.description = ''
+      this.category = ''
+      this.ranking = 0
+      this.isEdit = false
+      this.description = ''
+      this.ranking = 0
+      this.category = ''
+    },
     getFavThings () {
       this.$http
         .get(
@@ -120,10 +130,11 @@ export default {
         category: this.category,
         ranking: this.ranking}).then(
         (res) => {
-          this.title = ''
-          this.description = ''
-          this.category = ''
-          this.ranking = 0
+          this.clear()
+          // this.title = ''
+          // this.description = ''
+          // this.category = ''
+          // this.ranking = 0
           this.getFavThings()
           console.log(res)
         }
@@ -146,11 +157,12 @@ export default {
         category: this.category,
         ranking: this.ranking}).then(
         res => {
-          this.title = ''
-          this.description = ''
-          this.category = ''
-          this.ranking = 0
-          this.isEdit = false
+          this.clear()
+          // this.title = ''
+          // this.description = ''
+          // this.category = ''
+          // this.ranking = 0
+          // this.isEdit = false
           this.getFavThings()
           console.log(res)
         }).catch(
@@ -161,10 +173,11 @@ export default {
     deleteFav (id) {
       this.$http.delete(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${id}/`).then(
         res => {
-          this.title = ''
-          this.description = ''
-          this.ranking = 0
-          this.category = ''
+          this.clear()
+          // this.title = ''
+          // this.description = ''
+          // this.ranking = 0
+          // this.category = ''
           this.getFavThings()
           console.log(res)
         }).catch(
