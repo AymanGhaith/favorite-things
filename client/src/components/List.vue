@@ -80,115 +80,98 @@ export default {
   },
   mounted () {
     this.getFavThings()
-    // this.getCategories()
+    this.getCategories()
   },
   methods: {
     getFavThings () {
-      this.$http.get('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings', {headers: {'Access-Control-Allow-Origin': '*'}}).then(
-        result => {
-          console.log(result.data)
-          this.favthings = result.data
-        },
-        error => {
-          console.error(error)
+      this.$http
+        .get(
+          'http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings'
+        )
+        .then(
+          result => {
+            console.log(result.data)
+            this.favthings = result.data
+          },
+          error => {
+            console.error(error)
+          }
+        )
+    },
+    getCategories () {
+      this.$http
+        .get(
+          'http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/categories'
+        )
+        .then(
+          result => {
+            console.log(result.data)
+            this.categories = result.data
+          },
+          error => {
+            console.error(error)
+          }
+        )
+    },
+    addNewFavThing () {
+      this.$http.post('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/', {
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        ranking: this.ranking}).then(
+        (res) => {
+          this.title = ''
+          this.description = ''
+          this.category = ''
+          this.ranking = 0
+          this.getFavThings()
+          console.log(res)
         }
-      )
+      ).catch(err => {
+        console.error(err)
+      })
+    },
+    editFavThing (title, description, category, ranking, id) {
+      this.id = id
+      this.title = title
+      this.description = description
+      this.category = category
+      this.ranking = ranking
+      this.isEdit = true
+    },
+    updateFavThing () {
+      this.$http.put(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${this.id}/`, {
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        ranking: this.ranking}).then(
+        res => {
+          this.title = ''
+          this.description = ''
+          this.category = ''
+          this.ranking = 0
+          this.isEdit = false
+          this.getFavThings()
+          console.log(res)
+        }).catch(
+        err => {
+          console.error(err)
+        })
+    },
+    deleteFav (id) {
+      this.$http.delete(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${id}/`).then(
+        res => {
+          this.title = ''
+          this.description = ''
+          this.ranking = 0
+          this.category = ''
+          this.getFavThings()
+          console.log(res)
+        }).catch(
+        err => {
+          console.error(err)
+        })
     }
-    //   axios({
-    //     method: "GET",
-    //     url:
-    //       "http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings"
-    //   }).then(
-    //     result => {
-    //       console.log(result.data);
-    //       this.favthings = result.data;
-    //     },
-    //     error => {
-    //       console.error(error);
-    //     }
-    //   );
-    // }
-    // getCategories () {
-    //   axios.get('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/categories').then(
-    //     result => {
-    //       console.log(result.data)
-    //       this.categories = result.data
-    //     },
-    //     error => {
-    //       console.error(error)
-    //     }
-    //   )
-    // },
-    // getFavThings () {
-    //   axios({method: 'GET', url: 'http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings'}).then(
-    //     result => {
-    //       console.log(result.data)
-    //       this.favthings = result.data
-    //     },
-    //     error => {
-    //       console.error(error)
-    //     }
-    //   )
-    // },
-    // addNewFavThing () {
-    //   axios.post('http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/', {
-    //     title: this.title,
-    //     description: this.description,
-    //     category: this.category,
-    //     ranking: this.ranking}).then(
-    //     (res) => {
-    //       this.title = ''
-    //       this.description = ''
-    //       this.category = ''
-    //       this.ranking = 0
-    //       this.getFavThings()
-    //       console.log(res)
-    //     }
-    //   ).catch(err => {
-    //     console.error(err)
-    //   })
-    // },
-    // editFavThing (title, description, category, ranking, id) {
-    //   this.id = id
-    //   this.title = title
-    //   this.description = description
-    //   this.category = category
-    //   this.ranking = ranking
-    //   this.isEdit = true
-    // },
-    // updateFavThing () {
-    //   axios.put(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${this.id}/`, {
-    //     title: this.title,
-    //     description: this.description,
-    //     category: this.category,
-    //     ranking: this.ranking}).then(
-    //     res => {
-    //       this.title = ''
-    //       this.description = ''
-    //       this.category = ''
-    //       this.ranking = 0
-    //       this.isEdit = false
-    //       this.getFavThings()
-    //       console.log(res)
-    //     }).catch(
-    //     err => {
-    //       console.error(err)
-    //     })
-    // },
-    // deleteFav (id) {
-    //   axios.delete(`http://favorite-things-eb.iejvb9fzxp.eu-west-2.elasticbeanstalk.com/favoriteThings/${id}/`).then(
-    //     res => {
-    //       this.title = ''
-    //       this.description = ''
-    //       this.ranking = 0
-    //       this.category = ''
-    //       this.getFavThings()
-    //       console.log(res)
-    //     }).catch(
-    //     err => {
-    //       console.error(err)
-    //     })
-    // }
   }
 }
 </script>
